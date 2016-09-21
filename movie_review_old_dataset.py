@@ -33,10 +33,32 @@ class VoteClassifier(ClassifierI):
         conf = choice_votes / len(votes)
         return conf
 
-documents = [(list(movie_reviews.words(fileid)), category)
-             for category in movie_reviews.categories()
-             for fileid in movie_reviews.fileids(category)]
+# documents = [(list(movie_reviews.words(fileid)), category)
+             # for category in movie_reviews.categories()
+             # for fileid in movie_reviews.fileids(category)]
 
+
+documents=[]
+temp=""
+temp_list=[]
+with open("pos_tweet") as f:
+  content = f.readlines()
+# print (content)
+for c in content:
+  temp=c.strip()
+  temp=temp.split(" ")
+  # print (temp)  
+  documents.append((temp,'pos'))
+
+with open("neg_tweet") as f:
+  content = f.readlines()
+# print (content)
+for c in content:
+  temp=c.strip()
+  # print (temp)  
+  documents.append((temp,'neg'))
+
+print (documents[0])
 random.shuffle(documents)
 
 all_words = []

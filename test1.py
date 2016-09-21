@@ -43,20 +43,38 @@ if __name__ == '__main__':
     test_data =  []# ["Habitat depicts the post- apolyptic world after World War III." ,"The main protogonist is a boy from Varda who aims to find his parents.","His journey is not without challenges.","He has to fight prirates, dictators and last but the least the demons.","It is a fun thrilling and exciting movie.","Everyine should definitely watch it."]
 
     test_labels = []
-    for curr_class in classes:
-        dirname = os.path.join(data_dir, curr_class)
-        for fname in os.listdir(dirname):
-            with open(os.path.join(dirname, fname), 'r') as f:
-                content = f.read()
-                if fname.startswith('cv9'):
-                    test_data.append(content)
-                    test_labels.append(curr_class)
-                else:
-                    train_data.append(content)
-                    train_labels.append(curr_class)
+    # for curr_class in classes:
+    #     dirname = os.path.join(data_dir, curr_class)
+    #     for fname in os.listdir(dirname):
+    #         with open(os.path.join(dirname, fname), 'r') as f:
+    #             content = f.read()
+    #             if fname.startswith('pos'):
+    #                 test_data.append(content)
+    #                 test_labels.append(curr_class)
+    #             elif fname.startswith('neg'):
+    #                 train_data.append(content)
+    #                 train_labels.append(curr_class)
+    with open("pos_tweet_test", 'r') as f:
+        content=f.read()
+    test_data.append(content)
+    test_labels.append('pos')
+    with open("neg_tweet_test", 'r') as f:
+        content=f.read()
+    test_data.append(content)
+    test_labels.append('neg')
 
+    with open("pos_tweet_train", 'r') as f:
+        content=f.read()
+    train_data.append(content)
+    train_labels.append('pos')
+    with open("neg_tweet_train", 'r') as f:
+        content=f.read()
+    train_data.append(content)
+    train_labels.append('neg')
+
+    # print (train_data)
     # Create feature vectors
-    vectorizer = TfidfVectorizer(min_df=5,
+    vectorizer = TfidfVectorizer(min_df=1,
                                  max_df = 0.8,
                                  sublinear_tf=True,
                                  use_idf=True)
